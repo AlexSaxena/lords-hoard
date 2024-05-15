@@ -5,7 +5,7 @@ function Header() {
   return (
     <div>
       <header className="bg-white">
-        <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8 border-b">
           <Image src="/logo_chest.png" width={100} height={100} alt="logo" />
           <div className="flex flex-1 items-center justify-end md:justify-between">
             <nav aria-label="Global" className="hidden md:block">
@@ -45,14 +45,7 @@ function Header() {
                   className="block rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700"
                   href="#"
                 >
-                  Login
-                </a>
-
-                <a
-                  className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
-                  href="#"
-                >
-                  Register
+                  Enter Treasury!
                 </a>
               </div>
 

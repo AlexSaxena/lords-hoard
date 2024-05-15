@@ -66,6 +66,11 @@ export default function Page() {
             </div>
 
             <SignIn path="/sign-in" />
+            <p className="mt-4 leading-relaxed text-gray-500 dark:text-gray-400 text-center">
+              <a href="/" className="hover:text-white">
+                Take me back Home!
+              </a>
+            </p>
           </div>
         </main>
       </div>

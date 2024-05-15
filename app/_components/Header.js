@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import { SignedIn, UserButton } from "@clerk/nextjs";
 
 function Header() {
   return (
@@ -13,7 +14,7 @@ function Header() {
                 <li>
                   <a
                     className="text-gray-500 transition hover:text-gray-500/75"
-                    href="#"
+                    href="/upload"
                   >
                     Upload
                   </a>
@@ -48,6 +49,9 @@ function Header() {
                   Enter Treasury!
                 </a>
               </div>
+              <SignedIn>
+                <UserButton afterSignOutUrl="/" />
+              </SignedIn>
 
               <button className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
                 <span className="sr-only">Toggle menu</span>

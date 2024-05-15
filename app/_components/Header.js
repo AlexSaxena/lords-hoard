@@ -23,9 +23,9 @@ function Header() {
                 <li>
                   <a
                     className="text-gray-500 transition hover:text-gray-500/75"
-                    href="#"
+                    href="/files"
                   >
-                    About us
+                    My Files
                   </a>
                 </li>
 
@@ -34,7 +34,7 @@ function Header() {
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="#"
                   >
-                    Contact
+                    About us
                   </a>
                 </li>
               </ul>
@@ -44,7 +44,7 @@ function Header() {
               <div className="sm:flex sm:gap-4">
                 <a
                   className="block rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700"
-                  href="#"
+                  href="/files"
                 >
                   Enter Treasury!
                 </a>

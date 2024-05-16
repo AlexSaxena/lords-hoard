@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
+import AlertMsg from "./AlertMsg";
 
 function UploadForm() {
+  const [file, setFile] = useState();
+
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  const onFileSelect = (selectedFile) => {
+    console.log(selectedFile);
+    if (selectedFile && selectedFile.size > 2000000) {
+      console.log("Size greater than 2MB");
+      setErrorMsg("Maximum file size is 2 MB");
+      return;
+    }
+    setErrorMsg(null);
+    setFile(selectedFile);
+  };
+
   return (
-    <div>
+    <div className="text-center">
       <div className="flex items-center justify-center w-full">
         <label
           htmlFor="dropzone-file"
@@ -30,12 +46,24 @@ function UploadForm() {
               <strong className="text-primary"> drop</strong>
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              SVG, PNG, JPG or GIF (MAX. 800x400px)
+              SVG, PNG, JPG or GIF (MAX : 2mb)
             </p>
           </div>
-          <input id="dropzone-file" type="file" className="hidden" />
+          <input
+            id="dropzone-file"
+            type="file"
+            className="hidden"
+            onChange={(event) => onFileSelect(event.target.files[0])}
+          />
         </label>
       </div>
+      {errorMsg ? <AlertMsg msg={errorMsg} /> : null}
+      <button
+        disabled={!file}
+        className="p-2 bg-primary text-white w-[30%] rounded-full mt-5 disabled:bg-gray-500 disabled:cursor-not-allowed"
+      >
+        Upload
+      </button>
     </div>
   );
 }

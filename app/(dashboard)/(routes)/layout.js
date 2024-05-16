@@ -6,6 +6,7 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import SideNav from "../_components/SideNav";
+import TopHeader from "../_components/TopHeader";
 
 function layout({ children }) {
   return (
@@ -14,10 +15,11 @@ function layout({ children }) {
         <RedirectToSignIn />
       </SignedOut>
       <SignedIn>
-        <div className="h-full w-64 flex-col fixed inset-y-0 z-50">
+        <div className="h-full w-64 flex-col fixed inset-y-0 z-50 md:flex hidden">
           <SideNav />
         </div>
-        <div className="ml-64">
+        <div className="md:ml-64">
+          <TopHeader />
           {children}
           <UserButton afterSignOutUrl="/" />
         </div>

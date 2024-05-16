@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AlertMsg from "./AlertMsg";
 import FilePreview from "./FilePreview";
+import ProgressBar from "./progressBar";
 
 function UploadForm({ uploadBtnClick }) {
   const [file, setFile] = useState();
@@ -74,6 +75,7 @@ function UploadForm({ uploadBtnClick }) {
       >
         Upload
       </button>
+      <ProgressBar />
     </div>
   );
 }

@@ -13,7 +13,7 @@ function FilePreview({ file, removeFile }) {
           </h2>
         </div>
       </div>
-      <X className="text-red-600" onClick={() => removeFile()} />
+      <X className="text-red-600 cursor-pointer" onClick={() => removeFile()} />
     </div>
   );
 }

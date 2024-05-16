@@ -3,7 +3,7 @@ import AlertMsg from "./AlertMsg";
 import FilePreview from "./FilePreview";
 import ProgressBar from "./progressBar";
 
-function UploadForm({ uploadBtnClick }) {
+function UploadForm({ uploadBtnClick, progress }) {
   const [file, setFile] = useState();
 
   const [errorMsg, setErrorMsg] = useState(null);
@@ -68,14 +68,18 @@ function UploadForm({ uploadBtnClick }) {
           }}
         />
       ) : null}
-      <button
-        disabled={!file}
-        className="p-2 bg-primary text-white w-[30%] rounded-full mt-5 disabled:bg-gray-500 disabled:cursor-not-allowed"
-        onClick={() => uploadBtnClick(file)}
-      >
-        Upload
-      </button>
-      <ProgressBar />
+
+      {progress > 0 ? (
+        <ProgressBar progress={progress} />
+      ) : (
+        <button
+          disabled={!file}
+          className="p-2 bg-primary text-white w-[30%] rounded-full mt-5 disabled:bg-gray-500 disabled:cursor-not-allowed"
+          onClick={() => uploadBtnClick(file)}
+        >
+          Upload
+        </button>
+      )}
     </div>
   );
 }

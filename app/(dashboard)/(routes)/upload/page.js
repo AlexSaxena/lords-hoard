@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import UploadForm from "./_components/UploadForm";
 import {
   getDownloadURL,
@@ -10,6 +10,8 @@ import {
 import { app } from "@/firebaseConfig";
 
 function Upload() {
+  const [progress, setProgress] = useState();
+
   const storage = getStorage(app);
 
   const uploadFile = (file) => {
@@ -23,6 +25,7 @@ function Upload() {
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       console.log("Upload is " + progress + "% done");
 
+      setProgress(progress);
       progress === 100 &&
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
@@ -36,7 +39,10 @@ function Upload() {
         Hoist the <strong className="text-primary">Files</strong>, Share the{" "}
         <strong className="text-primary">Fortune</strong>!
       </h2>
-      <UploadForm uploadBtnClick={(file) => uploadFile(file)} />
+      <UploadForm
+        uploadBtnClick={(file) => uploadFile(file)}
+        progress={progress}
+      />
     </div>
   );
 }

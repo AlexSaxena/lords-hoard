@@ -1,7 +1,7 @@
-import { File } from "lucide-react";
+import { File, X } from "lucide-react";
 import React from "react";
 
-function FilePreview({ file }) {
+function FilePreview({ file, removeFile }) {
   return (
     <div className="flex items-center gap-3 justify-between mt-5 border rounded-md p-2 border-blue-300">
       <div className="flex items-center p-2">
@@ -13,6 +13,7 @@ function FilePreview({ file }) {
           </h2>
         </div>
       </div>
+      <X className="text-red-600" onClick={() => removeFile()} />
     </div>
   );
 }

@@ -7,12 +7,17 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { app } from "@/firebaseConfig";
+import { useUser } from "@clerk/nextjs";
+import { generateRandomString } from "@/app/_utils/GenerateRandomString";
 
 function Upload() {
+  const { user } = useUser();
   const [progress, setProgress] = useState();
 
   const storage = getStorage(app);
+  const db = getFirestore(app);
 
   const uploadFile = (file) => {
     const metadata = {
@@ -29,7 +34,24 @@ function Upload() {
       progress === 100 &&
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
+          saveInfo(file, downloadURL);
         });
+    });
+  };
+
+  const saveInfo = async (file, fileUrl) => {
+    const docId = generateRandomString().toString();
+
+    await setDoc(doc(db, "uploadedFile", docId), {
+      fileName: file?.name,
+      fileSize: file?.size,
+      fileType: file?.type,
+      fileUrl: fileUrl,
+      userEmail: user?.primaryEmailAddress.emailAddress,
+      userName: user?.fullName,
+      password: "",
+      id: docId,
+      shortUrl: process.env.NEXT_PUBLIC_BASE_URL + docId,
     });
   };
 

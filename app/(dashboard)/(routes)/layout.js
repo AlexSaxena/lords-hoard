@@ -21,7 +21,6 @@ function layout({ children }) {
         <div className="md:ml-64">
           <TopHeader />
           {children}
-          <UserButton afterSignOutUrl="/" />
         </div>
       </SignedIn>
     </div>

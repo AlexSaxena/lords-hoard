@@ -14,7 +14,7 @@ function TopHeader() {
         alt="logo"
         className="md:hidden"
       />
-      <UserButton />
+      <UserButton afterSignOutUrl="/" />
     </div>
   );
 }

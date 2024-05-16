@@ -1,6 +1,7 @@
+"use client";
 import { File, HardHat, Upload } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import { useState } from "react";
 
 function SideNav() {
   // List of Items to be in sidebar
@@ -10,16 +11,23 @@ function SideNav() {
     { id: 3, name: "WIP", icon: HardHat, path: "#" },
   ];
 
+  const [activeIndex, setActiveIndex] = useState(0);
+
   return (
-    <div>
+    <div className="shadow-sm border-r h-full">
       <div className="p-5 border-b">
         <Image src="/logo_chest.png" width={150} height={100} alt="logo" />
       </div>
-      <div className="flex flex-col float-left">
+      <div className="flex flex-col float-left w-full">
         {menuList.map((item, index) => (
           <button
             key={item.id}
-            className="flex gap-2 p-4 px-6 hover:bg-gray-100 w-full text-gray-500"
+            className={`flex gap-2 p-4 px-6 hover:bg-gray-100 w-full text-gray-500 ${
+              activeIndex === index ? "bg-blue-50 text-primary" : null
+            }`}
+            onClick={() => {
+              setActiveIndex(index);
+            }}
           >
             <item.icon />
             <h2>{item.name}</h2>

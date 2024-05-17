@@ -12,10 +12,13 @@ import { app } from "@/firebaseConfig";
 import { useUser } from "@clerk/nextjs";
 import { generateRandomString } from "@/app/_utils/GenerateRandomString";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 function Upload() {
   const { user } = useUser();
   const [progress, setProgress] = useState();
+
+  const router = useRouter();
 
   const storage = getStorage(app);
   const db = getFirestore(app);
@@ -54,17 +57,17 @@ function Upload() {
         id: docId,
         shortUrl: process.env.NEXT_PUBLIC_BASE_URL + docId,
       });
-      successfulUpload();
+      successfulUpload(docId);
     } catch (error) {
       console.error("Failed to save file info", error);
       unsuccessfulUpload();
     }
   };
 
-  const successfulUpload = () => {
-    toast("Upload successful, page will reload!");
+  const successfulUpload = (docId) => {
+    toast("Upload successful!");
     setTimeout(() => {
-      window.location.reload();
+      router.push("./file-preview/" + docId);
     }, 3000);
   };
 

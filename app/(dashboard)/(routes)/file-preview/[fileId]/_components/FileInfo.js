@@ -1,12 +1,15 @@
+import Image from "next/image";
 import React from "react";
 
 function FileInfo({ fileData }) {
   return (
     <div>
       <article className="overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm">
-        <img
+        <Image
           alt={`File -> ${fileData.fileName}`}
           src={fileData.fileUrl}
+          width={200}
+          height={200}
           className="h-56 w-full object-cover"
         />
 

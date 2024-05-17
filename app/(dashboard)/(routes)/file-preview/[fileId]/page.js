@@ -2,6 +2,8 @@
 import { app } from "@/firebaseConfig";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
+import FileInfo from "./_components/FileInfo";
+import FileForm from "./_components/FileForm";
 
 function FilePreview({ params }) {
   const db = getFirestore(app);
@@ -10,7 +12,7 @@ function FilePreview({ params }) {
   useEffect(() => {
     console.log(params?.fileId);
     params?.fileId && getFileInfo();
-  }, []);
+  }, [params?.fileId]);
 
   const getFileInfo = async () => {
     const docRef = doc(db, "uploadedFile", params?.fileId);
@@ -24,7 +26,17 @@ function FilePreview({ params }) {
       console.log("No such document!");
     }
   };
-  return <div>FilePreview</div>;
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 mt-5">
+      {console.log("fileData Page ->", fileData)}
+      {fileData && (
+        <>
+          <FileInfo fileData={fileData} />
+          <FileForm fileData={fileData} />
+        </>
+      )}
+    </div>
+  );
 }
 
 export default FilePreview;

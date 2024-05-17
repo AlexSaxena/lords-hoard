@@ -1,10 +1,11 @@
 "use client";
 import { app } from "@/firebaseConfig";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 function FilePreview({ params }) {
   const db = getFirestore(app);
+  const [fileData, setFileData] = useState();
 
   useEffect(() => {
     console.log(params?.fileId);
@@ -17,6 +18,7 @@ function FilePreview({ params }) {
 
     if (docSnap.exists()) {
       console.log("Document data:", docSnap.data());
+      setFileData(docSnap.data());
     } else {
       // docSnap.data() will be undefined in this case
       console.log("No such document!");

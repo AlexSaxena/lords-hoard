@@ -11,6 +11,7 @@ import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { app } from "@/firebaseConfig";
 import { useUser } from "@clerk/nextjs";
 import { generateRandomString } from "@/app/_utils/GenerateRandomString";
+import { toast } from "react-toastify";
 
 function Upload() {
   const { user } = useUser();
@@ -26,38 +27,57 @@ function Upload() {
     const storageRef = ref(storage, "file-upload/" + file?.name);
     const uploadTask = uploadBytesResumable(storageRef, file, metadata);
     uploadTask.on("state_changed", (snapshot) => {
-      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log("Upload is " + progress + "% done");
+      const progressUpdate =
+        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log("Upload is " + progressUpdate + "% done");
+      setProgress(progressUpdate);
 
-      setProgress(progress);
-      progress === 100 &&
+      if (progressUpdate === 100) {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
           saveInfo(file, downloadURL);
         });
+      }
     });
   };
 
   const saveInfo = async (file, fileUrl) => {
     const docId = generateRandomString().toString();
+    try {
+      await setDoc(doc(db, "uploadedFile", docId), {
+        fileName: file.name,
+        fileSize: file.size,
+        fileType: file.type,
+        fileUrl: fileUrl,
+        userEmail: user?.primaryEmailAddress.emailAddress,
+        userName: user?.fullName,
+        id: docId,
+        shortUrl: process.env.NEXT_PUBLIC_BASE_URL + docId,
+      });
+      successfulUpload();
+    } catch (error) {
+      console.error("Failed to save file info", error);
+      unsuccessfulUpload();
+    }
+  };
 
-    await setDoc(doc(db, "uploadedFile", docId), {
-      fileName: file?.name,
-      fileSize: file?.size,
-      fileType: file?.type,
-      fileUrl: fileUrl,
-      userEmail: user?.primaryEmailAddress.emailAddress,
-      userName: user?.fullName,
-      password: "",
-      id: docId,
-      shortUrl: process.env.NEXT_PUBLIC_BASE_URL + docId,
-    });
+  const successfulUpload = () => {
+    toast("Upload successful, page will reload!");
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
+  };
+
+  const unsuccessfulUpload = () => {
+    toast.error("Upload failed, please try again!");
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
   };
 
   return (
     <div className="p-5 px-8 md:px-28">
-      <h2 className="text-[20px] text-center m-5 ">
+      <h2 className="text-[20px] text-center m-5">
         Hoist the <strong className="text-primary">Files</strong>, Share the{" "}
         <strong className="text-primary">Fortune</strong>!
       </h2>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AlertMsg from "./AlertMsg";
 import FilePreview from "./FilePreview";
-import ProgressBar from "./progressBar";
+import ProgressBar from "./ProgressBar";
 
 function UploadForm({ uploadBtnClick, progress }) {
   const [file, setFile] = useState();

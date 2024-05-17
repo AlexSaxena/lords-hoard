@@ -8,6 +8,7 @@ import FileForm from "./_components/FileForm";
 function FilePreview({ params }) {
   const db = getFirestore(app);
   const [fileData, setFileData] = useState();
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     console.log(params?.fileId);
@@ -26,13 +27,22 @@ function FilePreview({ params }) {
       console.log("No such document!");
     }
   };
+
+  const handlePasswordChange = (newPassword) => {
+    setPassword(newPassword);
+    console.log("Password updated in FilePreview:", newPassword);
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 mt-5">
       {console.log("fileData Page ->", fileData)}
       {fileData && (
         <>
           <FileInfo fileData={fileData} />
-          <FileForm fileData={fileData} />
+          <FileForm
+            fileData={fileData}
+            onPasswordChange={handlePasswordChange}
+          />
         </>
       )}
     </div>

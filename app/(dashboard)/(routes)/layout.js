@@ -7,6 +7,8 @@ import {
 } from "@clerk/nextjs";
 import SideNav from "../_components/SideNav";
 import TopHeader from "../_components/TopHeader";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function layout({ children }) {
   return (
@@ -22,6 +24,17 @@ function layout({ children }) {
           <TopHeader />
           {children}
         </div>
+        <ToastContainer
+          position="top-center"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </SignedIn>
     </div>
   );

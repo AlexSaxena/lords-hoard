@@ -1,6 +1,6 @@
 "use client";
 import { app } from "@/firebaseConfig";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import FileInfo from "./_components/FileInfo";
 import FileForm from "./_components/FileForm";
@@ -8,7 +8,6 @@ import FileForm from "./_components/FileForm";
 function FilePreview({ params }) {
   const db = getFirestore(app);
   const [fileData, setFileData] = useState();
-  const [password, setPassword] = useState("");
 
   useEffect(() => {
     console.log(params?.fileId);
@@ -28,9 +27,12 @@ function FilePreview({ params }) {
     }
   };
 
-  const handlePasswordChange = (newPassword) => {
-    setPassword(newPassword);
+  const handlePasswordChange = async (newPassword) => {
     console.log("Password updated in FilePreview:", newPassword);
+    const docRef = doc(db, "uploadedFile", params?.fileId);
+    await updateDoc(docRef, {
+      password: newPassword,
+    });
   };
 
   return (

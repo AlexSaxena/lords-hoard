@@ -1,9 +1,12 @@
+import GlobalApi from "../../../../../_utils/GlobalApi";
 import React, { useState } from "react";
+import { useUser } from "@clerk/nextjs";
 
 function FileForm({ fileData, onPasswordChange }) {
   const [passwordEnabled, setPasswordEnabled] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const { user } = useUser();
 
   // Toggle password field enabled state and clear password if disabled
   const togglePassword = () => {
@@ -32,6 +35,18 @@ function FileForm({ fileData, onPasswordChange }) {
   // Placeholder function for sending an email
   const sendEmail = () => {
     console.log("Sending email to:", email);
+
+    const data = {
+      emailToSend: email,
+      userName: user?.fullName,
+      fileName: fileData.fileName,
+      fileSize: fileData.fileSize,
+      fileType: fileData.filetype,
+      shortUrl: fileData.shortUrl,
+    };
+    GlobalApi.SendEmail(data).then((resp) => {
+      console.log("resp", resp);
+    });
   };
 
   return (

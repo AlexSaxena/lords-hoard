@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import GlobalApi from "../../../../../_utils/GlobalApi";
+import { Copy } from "lucide-react";
+import { toast } from "react-toastify";
 
 function FileForm({ fileData, onPasswordChange }) {
   const [passwordEnabled, setPasswordEnabled] = useState(false);
@@ -46,7 +48,13 @@ function FileForm({ fileData, onPasswordChange }) {
     };
     GlobalApi.SendEmail(data).then((resp) => {
       console.log("resp", resp);
+      toast.success("Email Sent!");
     });
+  };
+
+  const onCopyHandler = () => {
+    navigator.clipboard.writeText(fileData.shortUrl);
+    toast.success("Short Url copied to clipboard");
   };
 
   return (
@@ -59,14 +67,20 @@ function FileForm({ fileData, onPasswordChange }) {
           >
             Short Url
           </label>
-          <input
-            type="text"
-            id="shortUrl"
-            name="short_url"
-            value={fileData.shortUrl}
-            readOnly
-            className="mt-1 w-full rounded-md border-gray-200 bg-gray-100 text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
-          />
+          <div className="flex gap-5 p-2 border rounded-md justify-between">
+            <input
+              type="text"
+              id="shortUrl"
+              name="short_url"
+              value={fileData.shortUrl}
+              readOnly
+              className="mt-1 w-full rounded-md border-gray-200 bg-transparent text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+            />
+            <Copy
+              className="text-gray-400 hover:text-gray-600 cursor-pointer"
+              onClick={() => onCopyHandler()}
+            />
+          </div>
         </div>
 
         <div>

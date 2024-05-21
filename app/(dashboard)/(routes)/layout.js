@@ -17,7 +17,7 @@ function layout({ children }) {
         <RedirectToSignIn />
       </SignedOut>
       <SignedIn>
-        <div className="h-full w-64 flex-col fixed inset-y-0 z-50 md:flex hidden">
+        <div className="h-full w-64 flex-col fixed inset-y-0 z-50 md:flex hidden bg-white">
           <SideNav />
         </div>
         <div className="md:ml-64">

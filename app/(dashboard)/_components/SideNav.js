@@ -1,6 +1,7 @@
 "use client";
 import { File, HardHat, Upload } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 function SideNav() {
@@ -20,18 +21,19 @@ function SideNav() {
       </div>
       <div className="flex flex-col float-left w-full">
         {menuList.map((item, index) => (
-          <button
-            key={item.id}
-            className={`flex gap-2 p-4 px-6 hover:bg-gray-100 w-full text-gray-500 ${
-              activeIndex === index ? "bg-blue-50 text-primary" : null
-            }`}
-            onClick={() => {
-              setActiveIndex(index);
-            }}
-          >
-            <item.icon />
-            <h2>{item.name}</h2>
-          </button>
+          <Link href={item.path} key={index}>
+            <button
+              className={`flex gap-2 p-4 px-6 hover:bg-gray-100 w-full text-gray-500 ${
+                activeIndex === index ? "bg-blue-50 text-primary" : null
+              }`}
+              onClick={() => {
+                setActiveIndex(index);
+              }}
+            >
+              <item.icon />
+              <h2>{item.name}</h2>
+            </button>
+          </Link>
         ))}
       </div>
     </div>

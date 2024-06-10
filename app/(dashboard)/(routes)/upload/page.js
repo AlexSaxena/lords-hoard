@@ -79,7 +79,7 @@ function Upload() {
   };
 
   return (
-    <div className="p-5 px-8 md:px-28">
+    <div className="p-5 px-8 md:px-28 bg-gray-900 w-full h-full">
       <h2 className="text-[20px] text-center m-5">
         Hoist the <strong className="text-primary">Files</strong>, Share the{" "}
         <strong className="text-primary">Fortune</strong>!

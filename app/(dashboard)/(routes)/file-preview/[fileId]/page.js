@@ -36,7 +36,7 @@ function FilePreview({ params }) {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 mt-5">
+    <div className="p-5 grid grid-cols-1 md:grid-cols-2 w-full h-[70vh] bg-gray-900">
       {/* {console.log("fileData Page ->", fileData)} */}
       {fileData && (
         <>

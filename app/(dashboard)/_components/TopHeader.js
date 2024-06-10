@@ -5,7 +5,7 @@ import Image from "next/image";
 
 function TopHeader() {
   return (
-    <div className="flex p-5 border-b items-center justify-between md:justify-end">
+    <div className="flex p-5 border-b items-center justify-between md:justify-end bg-gray-900">
       <Menu className="md:hidden" />
       <Image
         src="/logo_chest.png"
